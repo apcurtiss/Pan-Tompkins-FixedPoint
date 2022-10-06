@@ -198,6 +198,36 @@ void PT_init( void )
 
 /**********************************************************************************
 
+Fuction Name: PeakDtcI
+
+Parameter:
+Input	:	none - Employs Current_Sample.
+
+Returns	:	p	 - The local maxima in intergrated signal.
+
+Description: This is a simple peak detector for fiducial point detection in the integrated signal.
+If the signal changes sign the value of the peak is asssumed ot be a peak.
+if x[n-1] <= x[n] > x[n+1], then x[n] is a peak.
+
+**********************************************************************************/
+uint16_t PeakDtcI(void)
+{
+	uint16_t p;
+	// ---------- Local maxima or not --------- //
+	if (PT_dptr->MVA_val <= Prev_val && Prev_val > Prev_Prev_val) {
+		p = Prev_val;
+	}
+	else {
+		p = 0;
+	}
+	Prev_Prev_val = Prev_val;
+	Prev_val = PT_dptr->MVA_val;
+
+	return (p);
+}
+
+/**********************************************************************************
+
 	Fuction Name: PT_StateMachine
 
 	Parameter:
@@ -627,37 +657,6 @@ void MVAFilter(void)
 
 	if (++PT_dptr->MVA_pointer == MVA_BUFFER_SIZE) 
 		PT_dptr->MVA_pointer = 0;
-}
-
-
-/**********************************************************************************
-
-Fuction Name: PeakDtcI
-
-Parameter:
-Input	:	none - Employs Current_Sample.
-
-Returns	:	p	 - The local maxima in intergrated signal.
-
-Description: This is a simple peak detector for fiducial point detection in the integrated signal.
-If the signal changes sign the value of the peak is asssumed ot be a peak.
-if x[n-1] <= x[n] > x[n+1], then x[n] is a peak.
-
-**********************************************************************************/
-uint16_t PeakDtcI(void)
-{
-	uint16_t p;
-	// ---------- Local maxima or not --------- //
-	if (PT_dptr->MVA_val <= Prev_val && Prev_val > Prev_Prev_val) {
-		p = Prev_val;
-	}
-	else {
-		p = 0;
-	}
-	Prev_Prev_val = Prev_val;
-	Prev_val = PT_dptr->MVA_val;
-
-	return (p);
 }
 
 /**********************************************************************************

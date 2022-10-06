@@ -4,6 +4,10 @@
 #include <stdint.h>
 #include <string.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /************************************************************
     Timing constants (assumption Sampling Frequency = 200 Hz)
  ************************************************************/
@@ -106,7 +110,6 @@ void HPFilter(void);
 void DerivFilter(void);
 void SQRFilter(void);
 void MVAFilter(void);
-int16_t PeakDtcI(void);
 void PeakDtcDR(int16_t DR_sample);
 void PeakDtcBP(int16_t DR_sample);
 void UpdateRR(int16_t qrs);
@@ -130,6 +133,10 @@ uint16_t PT_get_NPKI_output(void);
 int16_t PT_get_SPKF_output(void);
 int16_t PT_get_NPKF_output(void);
 int16_t PT_get_HRState_output(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 
