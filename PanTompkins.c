@@ -94,6 +94,9 @@
 
 #include "PanTompkins.h"
 
+#include "../log.h"
+LOG_MODULE_REGISTER(PAN_TOMPKINS_LOG_NAME, PAN_TOMPKINS_LOG_LEVEL);
+
 
 /********************************************************************************
     PT Algorithm data and buffers, see PT_init for detailed use of each parameter.
@@ -936,4 +939,13 @@ int16_t PT_get_NPKF_output(void) {
 // ------Returns HR state -> Regular:0, Irregular:1 ------ //
 int16_t PT_get_HRState_output(void) {
 	return (PT_dptr->HR_State);
+}
+
+
+float PT_get_inst_HR(int16_t Fs) {
+	return (60.0 / ((float)PT_dptr->Recent_RR_M / (float)Fs));
+}
+
+float PT_get_mean_HR(int16_t Fs) {
+	return (60.0 / ((float)PT_dptr->RR_M / (float)Fs));
 }

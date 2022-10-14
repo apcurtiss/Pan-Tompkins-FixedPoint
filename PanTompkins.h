@@ -4,6 +4,10 @@
 #include <stdint.h>
 #include <string.h>
 
+#include <logging/log.h>
+
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -133,6 +137,9 @@ uint16_t PT_get_NPKI_output(void);
 int16_t PT_get_SPKF_output(void);
 int16_t PT_get_NPKF_output(void);
 int16_t PT_get_HRState_output(void);
+
+float PT_get_inst_HR(int16_t Fs);
+float PT_get_mean_HR(int16_t Fs);
 
 #ifdef __cplusplus
 }
